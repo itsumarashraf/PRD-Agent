@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     # LLM
     LLM_MODEL: str = "ministral-3:3b"
     LLM_TEMPERATURE: float = 0.2
+    OLLAMA_BASE_URL: str
 
     MAIL_USERNAME: str
     MAIL_PASSWORD: str
