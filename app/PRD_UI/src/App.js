@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const API = "https://prd-studio-7r66.onrender.com";
-
 // ── Styles ────────────────────────────────────────────────────────────────────
 const css = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap');
@@ -53,8 +52,9 @@ const css = `
     border-bottom: 1px solid var(--border);
     padding: 28px 0 22px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 16px;
+    flex-wrap: wrap;
     position: sticky;
     top: 0;
     background: var(--ink);
@@ -154,6 +154,7 @@ const css = `
     outline: none;
     resize: none;
     transition: border-color var(--transition), box-shadow var(--transition);
+    width: 100%;
   }
   .form-input:focus, .form-textarea:focus {
     border-color: var(--gold-dim);
@@ -165,6 +166,7 @@ const css = `
   .btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     padding: 11px 20px;
     border-radius: var(--radius);
@@ -287,6 +289,7 @@ const css = `
     align-items: center;
     gap: 12px;
     margin-bottom: 6px;
+    flex-wrap: wrap;
   }
   .review-section-label {
     font-family: 'JetBrains Mono', monospace;
@@ -375,6 +378,7 @@ const css = `
     resize: none;
     min-height: 80px;
     transition: border-color var(--transition), box-shadow var(--transition);
+    width: 100%;
   }
   .feedback-input:focus {
     border-color: var(--blue);
@@ -390,6 +394,7 @@ const css = `
     border-top-color: var(--gold);
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -427,6 +432,7 @@ const css = `
     border: 1px solid rgba(76,175,125,0.25);
     border-radius: var(--radius);
     margin-bottom: 28px;
+    flex-wrap: wrap;
   }
   .completed-icon {
     width: 28px; height: 28px;
@@ -437,6 +443,7 @@ const css = `
     justify-content: center;
     flex-shrink: 0;
   }
+  .completed-banner-text { flex: 1; min-width: 120px; }
   .completed-banner h3 {
     color: var(--green);
     font-size: 0.9rem;
@@ -473,17 +480,20 @@ const css = `
     font-size: 0.6rem;
     color: var(--muted);
     width: 24px;
+    flex-shrink: 0;
   }
   .prd-section-name {
     font-size: 0.88rem;
     font-weight: 500;
     color: var(--text-bright);
     flex: 1;
+    min-width: 0;
   }
   .prd-chevron {
     color: var(--muted);
     font-size: 0.7rem;
     transition: transform 0.2s;
+    flex-shrink: 0;
   }
   .prd-chevron.open { transform: rotate(180deg); }
   .prd-section-body {
@@ -517,6 +527,7 @@ const css = `
     font-size: 0.72rem;
     color: var(--text);
     animation: fadeUp 0.2s ease;
+    word-break: break-all;
   }
   .email-tag-remove {
     background: none;
@@ -527,6 +538,7 @@ const css = `
     line-height: 1;
     padding: 0;
     transition: color var(--transition);
+    flex-shrink: 0;
   }
   .email-tag-remove:hover { color: var(--red); }
   .email-input-row {
@@ -573,11 +585,86 @@ const css = `
   }
   .sent-card p { color: var(--muted); font-size: 0.9rem; }
 
+  /* ── Footer ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 0;
+    text-align: center;
+  }
+  .footer-credit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .footer-credit span { color: var(--gold); }
+
   /* ── Scrollbar ── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  /* ── Mobile: 640px ── */
+  @media (max-width: 640px) {
+    .app { padding: 0 16px; }
+
+    .header { padding: 16px 0 14px; gap: 8px; }
+    .header-logo { font-size: 1.25rem; }
+    .header-step-trail { margin-left: 0; width: 100%; }
+
+    .main { padding: 24px 0 60px; }
+
+    .card { padding: 20px 16px; }
+
+    .section-title { font-size: 1.35rem; }
+    .section-sub { margin-bottom: 24px; }
+
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+
+    .review-title { font-size: 1.2rem; }
+    .content-box { padding: 16px; font-size: 0.75rem; max-height: 240px; }
+
+    .action-row { gap: 8px; }
+    .action-row .btn { flex: 1; font-size: 0.8rem; padding: 10px 10px; }
+    .action-divider { display: none; }
+
+    .feedback-row { flex-direction: column; }
+    .feedback-row > div {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      width: 100%;
+    }
+    .feedback-row > div .btn { flex: 1; }
+
+    .completed-banner { flex-direction: column; align-items: flex-start; }
+    .completed-banner .btn { width: 100%; }
+
+    .prd-section-header { padding: 12px 14px; gap: 8px; }
+    .prd-section-name { font-size: 0.8rem; }
+    .prd-section-body { padding: 14px; font-size: 0.73rem; }
+
+    .email-input-row { flex-direction: column; }
+    .email-input-row .btn { width: 100%; }
+
+    .sent-card { padding: 40px 16px; }
+    .sent-card h2 { font-size: 1.35rem; }
+
+    .section-nav { gap: 4px; }
+    .section-chip { font-size: 0.55rem; padding: 3px 7px; }
+
+    .btn-lg { padding: 12px 20px; font-size: 0.88rem; width: 100%; }
+  }
+
+  /* ── Mobile: 400px ── */
+  @media (max-width: 400px) {
+    .header-tag { display: none; }
+    .action-row .btn { font-size: 0.72rem; padding: 9px 8px; }
+    .section-chip { font-size: 0.5rem; padding: 3px 5px; }
+  }
 `;
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -908,13 +995,12 @@ export default function App() {
             <div>
               <div className="completed-banner">
                 <div className="completed-icon">✓</div>
-                <div>
+                <div className="completed-banner-text">
                   <h3>PRD Complete</h3>
                   <p>All {PRD_SECTIONS.length} sections have been approved and are ready to share.</p>
                 </div>
                 <button
                   className="btn btn-primary"
-                  style={{ marginLeft: "auto" }}
                   onClick={() => { setPhase("sending"); setError(null); }}
                 >
                   Send via Email →
@@ -930,7 +1016,7 @@ export default function App() {
                       <div className="prd-section-header" onClick={() => setOpenSection(isOpen ? null : name)}>
                         <span className="prd-section-num">0{i + 1}</span>
                         <span className="prd-section-name">{name}</span>
-                        {content && <span style={{ fontSize: "0.6rem", color: "var(--green)", fontFamily: "JetBrains Mono", marginRight: 8 }}>✓ ready</span>}
+                        {content && <span style={{ fontSize: "0.6rem", color: "var(--green)", fontFamily: "JetBrains Mono", marginRight: 8, flexShrink: 0 }}>✓ ready</span>}
                         <span className={`prd-chevron ${isOpen ? "open" : ""}`}>▼</span>
                       </div>
                       {isOpen && content && (
@@ -979,7 +1065,7 @@ export default function App() {
                 )}
               </div>
 
-              <div style={{ borderTop: "1px solid var(--border)", paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ borderTop: "1px solid var(--border)", paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
                 <button className="btn btn-ghost" onClick={() => { setPhase("completed"); setError(null); }}>
                   ← Back to PRD
                 </button>
@@ -1024,6 +1110,11 @@ export default function App() {
             </div>
           )}
         </main>
+
+        {/* ── FOOTER ── */}
+        <footer className="footer">
+          <p className="footer-credit">Created by <span>Umar Ashraf</span></p>
+        </footer>
       </div>
     </>
   );
